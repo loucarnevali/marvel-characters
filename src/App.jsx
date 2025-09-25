@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import SearchBar from './components/SearchBar/SearchBar';
-import CharacterList from './components/CharacterList';
-import Pagination from './components/Pagination';
-import CharacterDetail from './components/CharacterDetail';
 import Header from './components/Header/Header';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './components/theme';
+import CharactersContainer from './components/CharacterContainer/CharacterContainer';
+import Pagination from './components/Pagination/Pagination';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -16,6 +15,12 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.backgroundSecondary}; 
     color: ${(props) => props.theme.text};
     transition: all 0.3s ease;
+  }
+
+    ul, li {
+    list-style: none; 
+    padding-left: 0; 
+    margin: 0;       
   }
 `;
 
@@ -42,9 +47,8 @@ function App() {
 
         <MainContainer>
           <SearchBar value={search} onChange={setSearch} />
-          <CharacterList />
+          <CharactersContainer />
           <Pagination />
-          <CharacterDetail />
         </MainContainer>
       </div>
     </ThemeProvider>

@@ -9,7 +9,7 @@ export const SearchContainer = styled.div`
 
   @media (max-width: 375px) {
     align-items: center;
-    margin: 1rem 0 3rem 0;
+    margin: 1rem 0 1rem 0;
   }
 `;
 
