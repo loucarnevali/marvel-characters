@@ -2,18 +2,22 @@ import React, { useEffect, useState } from 'react';
 import CharacterCard from '../CharacterCard/CharacterCard';
 import { Container, HeaderRow } from './CharacterContainer.styles';
 import CharacterModal from '../CharacterModal/CharacterModal';
+import Pagination from '../Pagination/Pagination';
 
 function CharactersContainer() {
   const [characters, setCharacters] = useState([]);
   const [selectedChar, setSelectedChar] = useState(null);
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
-    const publicKey = '2ffb5aacf55e1ae022425812efd6c255';
-    const url = `https://gateway.marvel.com/v1/public/characters?apikey=${publicKey}&limit=10`;
+    const publicKey = import.meta.env.VITE_MARVEL_PUBLIC_KEY;
+    const url = `https://gateway.marvel.com/v1/public/characters?apikey=${publicKey}`;
 
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         const chars = data.data.results.map((char) => ({
           id: char.id,
           name: char.name,
@@ -30,6 +34,13 @@ function CharactersContainer() {
     return <p>Carregando personagens...</p>;
   }
 
+  const itemsPerPage = 4;
+  const totalPages = Math.ceil(characters.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const charactersToShow = characters.slice(startIndex, endIndex);
+
   return (
     <Container>
       <HeaderRow>
@@ -38,7 +49,7 @@ function CharactersContainer() {
         <div>Eventos</div>
       </HeaderRow>
 
-      {characters.map((char) => (
+      {charactersToShow.map((char) => (
         <CharacterCard
           key={char.id}
           character={char}
@@ -49,6 +60,12 @@ function CharactersContainer() {
       <CharacterModal
         character={selectedChar}
         onClose={() => setSelectedChar(null)}
+      />
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
     </Container>
   );
