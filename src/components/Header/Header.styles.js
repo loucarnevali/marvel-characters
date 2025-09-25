@@ -88,6 +88,10 @@ export const Switch = styled.button`
   transition: all 0.3s ease;
   font-size: 1rem;
 
+  &:hover {
+    opacity: 0.6;
+  }
+
   @media (max-width: 660px) {
     top: 0.5rem;
     right: 1rem;
