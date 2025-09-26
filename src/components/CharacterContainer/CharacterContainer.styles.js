@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const HeaderRow = styled.div`
   display: grid;
-  grid-template-columns: 3fr 2fr 2fr;
+  grid-template-columns: 2.5fr 2fr 2fr;
   padding: 20px 0px 0px 50px;
   color: ${(props) => props.theme.text};
   border-radius: 6px;

@@ -10,7 +10,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const maxVisible = windowWidth < 375 ? 3 : totalPages;
+  const maxVisible = windowWidth < 376 ? 3 : totalPages;
 
   // calculates visible pagination
   let startPage = Math.max(currentPage - Math.floor(maxVisible / 2), 1);

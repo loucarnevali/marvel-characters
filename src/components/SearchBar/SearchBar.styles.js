@@ -7,7 +7,7 @@ export const SearchContainer = styled.div`
   margin: 1rem 0;
   width: 100%;
 
-  @media (max-width: 375px) {
+  @media (max-width: 376px) {
     align-items: center;
     margin: 1rem 0 1rem 0;
   }
@@ -17,7 +17,7 @@ export const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
 
-  @media (max-width: 375px) {
+  @media (max-width: 376px) {
     font-size: 24px;
     margin-bottom: 1rem;
   }
@@ -27,7 +27,7 @@ export const Label = styled.p`
   font-size: 1rem;
   font-weight: bold;
 
-  @media (max-width: 375px) {
+  @media (max-width: 376px) {
     font-size: 14px;
   }
 `;
@@ -62,7 +62,7 @@ export const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: ${(props) => props.theme.inputFocus};
-    box-shadow: 0 0 5px ${(props) => props.theme.inputFocus};
+    border-color: ${(props) => props.theme.primary};
+    box-shadow: 0 0 5px ${(props) => props.theme.primary};
   }
 `;

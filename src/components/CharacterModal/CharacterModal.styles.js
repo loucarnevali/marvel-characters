@@ -26,6 +26,7 @@ export const ModalContent = styled.div`
 
   h2 {
     margin-bottom: 1rem;
+    color: ${({ theme }) => theme.primary};
   }
 
   h3 {
@@ -42,13 +43,13 @@ export const ModalContent = styled.div`
 export const CloseButton = styled.button`
   position: relative;
   top: -1.5rem;
-  right: -16rem;
+  right: -100%;
   width: 22px;
   border-radius: 4px;
   border: none;
-  font-size: 1.5rem;
-  background-color: ${(props) => (props.dark ? '#333' : '#ddd')};
-  color: ${(props) => (props.dark ? '#fff' : '#000')};
+  font-size: 2rem;
+  background-color: transparent;
+  color: ${({ theme }) => theme.primary};
   cursor: pointer;
 
   &:hover {
