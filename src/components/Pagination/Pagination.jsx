@@ -1,26 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PaginationWrapper, PageButton } from './Pagination.styles';
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxVisible = windowWidth < 375 ? 3 : totalPages;
+
+  // calculates visible pagination
+  let startPage = Math.max(currentPage - Math.floor(maxVisible / 2), 1);
+  let endPage = startPage + maxVisible - 1;
+  if (endPage > totalPages) {
+    endPage = totalPages;
+    startPage = Math.max(endPage - maxVisible + 1, 1);
+  }
+
+  const pagesToShow = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i,
+  );
 
   return (
     <PaginationWrapper>
-      {/* Voltar para primeira página: aparece se currentPage > 2 */}
+      {/* back to First Page: currentPage > 2 */}
       {currentPage > 2 && (
         <PageButton isArrow onClick={() => onPageChange(1)}>
           «
         </PageButton>
       )}
 
-      {/* Voltar uma página: aparece se currentPage > 1 */}
+      {/* back one page currentPage > 1 */}
       {currentPage > 1 && (
         <PageButton isArrow onClick={() => onPageChange(currentPage - 1)}>
           ‹
         </PageButton>
       )}
 
-      {pages.map((page) => (
+      {pagesToShow.map((page) => (
         <PageButton
           key={page}
           active={page === currentPage}
@@ -31,14 +52,14 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         </PageButton>
       ))}
 
-      {/* Avançar uma página: aparece se currentPage < totalPages */}
+      {/* advance one page: currentPage < totalPages */}
       {currentPage < totalPages && (
         <PageButton isArrow onClick={() => onPageChange(currentPage + 1)}>
           ›
         </PageButton>
       )}
 
-      {/* Avançar para última página: aparece se currentPage < totalPages - 1 */}
+      {/* advance to the last page: currentPage < totalPages - 1 */}
       {currentPage < totalPages - 1 && (
         <PageButton isArrow onClick={() => onPageChange(totalPages)}>
           »
