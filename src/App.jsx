@@ -27,7 +27,7 @@ const MainContainer = styled.div`
   background-color: ${({ theme }) => theme.backgroundSecondary};
   padding: 2rem 5rem;
 
-  @media (max-width: 375px) {
+  @media (max-width: 376px) {
     padding: 0.5rem 0;
   }
 `;

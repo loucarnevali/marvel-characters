@@ -3,12 +3,15 @@ import CharacterCard from '../CharacterCard/CharacterCard';
 import { Container, HeaderRow } from './CharacterContainer.styles';
 import CharacterModal from '../CharacterModal/CharacterModal';
 import Pagination from '../Pagination/Pagination';
+import Skeleton from '../Skeleton/Skeleton';
 
 function CharactersContainer() {
   const [characters, setCharacters] = useState([]);
   const [selectedChar, setSelectedChar] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const publicKey = import.meta.env.VITE_MARVEL_PUBLIC_KEY;
@@ -25,14 +28,13 @@ function CharactersContainer() {
           series: char.series.items.map((s) => s.name),
           events: char.events.items.map((e) => e.name),
         }));
-        setCharacters(chars);
+        setTimeout(() => {
+          setCharacters(chars);
+          setLoading(false);
+        }, 4000);
       })
       .catch((err) => console.error(err));
   }, []);
-
-  if (!characters || characters.length === 0) {
-    return <p>Carregando personagens...</p>;
-  }
 
   const itemsPerPage = 4;
   const totalPages = Math.ceil(characters.length / itemsPerPage);
@@ -40,6 +42,17 @@ function CharactersContainer() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const charactersToShow = characters.slice(startIndex, endIndex);
+
+  if (loading) {
+    return (
+      <div>
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+      </div>
+    );
+  }
 
   return (
     <Container>

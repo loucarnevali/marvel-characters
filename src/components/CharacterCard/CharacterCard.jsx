@@ -18,7 +18,7 @@ function CharacterCard({ character, onClick }) {
         <CharacterName>{character.name || '-'}</CharacterName>
       </CharacterInfo>
 
-      {/* Só aparecem  em telas maiores */}
+      {/* Only on larger screens */}
       <InfoList>
         {character.series.length > 0 ? (
           character.series.slice(0, 3).map((s, i) => <li key={i}>{s}</li>)

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CharacterRow = styled.div`
   display: grid;
-  grid-template-columns: 3fr 2fr 2fr;
+  grid-template-columns: 2.5fr 2fr 2fr;
   gap: 12px;
   align-items: center;
   padding: 20px 0px 20px 50px;
@@ -12,6 +12,8 @@ export const CharacterRow = styled.div`
   color: ${(props) => props.theme.text};
   text-align: left;
   box-shadow: ${({ theme }) => theme.boxShadow};
+  height: 115px;
+  cursor: pointer;
 
   transition:
     box-shadow 0.2s ease,
@@ -26,13 +28,16 @@ export const CharacterRow = styled.div`
     grid-template-columns: 1fr;
     padding: 12px;
   }
+
+  @media (max-width: 376px) {
+    height: 100px;
+  }
 `;
 
 export const CharacterInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
-  margin-right: 50px;
 `;
 
 export const CharacterImage = styled.img`
