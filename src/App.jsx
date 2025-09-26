@@ -4,7 +4,6 @@ import Header from './components/Header/Header';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './components/theme';
 import CharactersContainer from './components/CharacterContainer/CharacterContainer';
-import Pagination from './components/Pagination/Pagination';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -47,8 +46,8 @@ function App() {
 
         <MainContainer>
           <SearchBar value={search} onChange={setSearch} />
-          <CharactersContainer />
-          <Pagination />
+
+          <CharactersContainer search={search} />
         </MainContainer>
       </div>
     </ThemeProvider>
