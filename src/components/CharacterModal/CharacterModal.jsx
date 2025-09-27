@@ -1,7 +1,7 @@
 import React from 'react';
 import { Backdrop, CloseButton, ModalContent } from './CharacterModal.styles';
 
-function CharacterModal({ character, onClose }) {
+const CharacterModal = ({ character, onClose }) => {
   if (!character) return null;
 
   return (
@@ -32,6 +32,6 @@ function CharacterModal({ character, onClose }) {
       </ModalContent>
     </Backdrop>
   );
-}
+};
 
 export default CharacterModal;

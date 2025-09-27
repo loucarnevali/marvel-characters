@@ -1,58 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import CharacterCard from '../CharacterCard/CharacterCard';
-import { Container, HeaderRow } from './CharacterContainer.styles';
+import {
+  Container,
+  HeaderRow,
+  StatusMessage,
+} from './CharacterContainer.styles';
 import CharacterModal from '../CharacterModal/CharacterModal';
 import Pagination from '../Pagination/Pagination';
-import Skeleton from '../Skeleton/Skeleton';
+import { getMarvelErrorMessage } from '../../utils/marvelErrors';
+import { fetchCharacters } from '../../services/marvelAPI';
+import Skeleton from '../../utils/Skeleton';
 
-function CharactersContainer() {
+const CharactersContainer = ({ search }) => {
+  const [allCharacters, setAllCharacters] = useState([]);
   const [characters, setCharacters] = useState([]);
   const [selectedChar, setSelectedChar] = useState(null);
-
   const [currentPage, setCurrentPage] = useState(1);
-
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const publicKey = import.meta.env.VITE_MARVEL_PUBLIC_KEY;
-    const url = `https://gateway.marvel.com/v1/public/characters?apikey=${publicKey}`;
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        const chars = data.data.results.map((char) => ({
-          id: char.id,
-          name: char.name,
-          image: `${char.thumbnail.path}.${char.thumbnail.extension}`,
-          series: char.series.items.map((s) => s.name),
-          events: char.events.items.map((e) => e.name),
-        }));
-        setTimeout(() => {
-          setCharacters(chars);
-          setLoading(false);
-        }, 4000);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const [statusMessage, setStatusMessage] = useState('');
 
   const itemsPerPage = 4;
-  const totalPages = Math.ceil(characters.length / itemsPerPage);
 
+  // load all characters
+  useEffect(() => {
+    const loadCharacters = async () => {
+      setLoading(true);
+      setStatusMessage('');
+      try {
+        const chars = await fetchCharacters();
+        setAllCharacters(chars);
+        setCharacters(chars);
+      } catch (err) {
+        console.error(err);
+        setStatusMessage(getMarvelErrorMessage(err.status, err.message));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCharacters();
+  }, []);
+
+  // filter locally
+  useEffect(() => {
+    if (!search) {
+      setCharacters(allCharacters);
+      setStatusMessage('');
+    } else {
+      const filtered = allCharacters.filter((char) =>
+        char.name.toLowerCase().includes(search.toLowerCase()),
+      );
+      setCharacters(filtered);
+      setStatusMessage(
+        filtered.length === 0 ? 'Nenhum personagem encontrado.' : '',
+      );
+      setCurrentPage(1);
+    }
+  }, [search, allCharacters]);
+
+  const totalPages = Math.ceil(characters.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const charactersToShow = characters.slice(startIndex, endIndex);
-
-  if (loading) {
-    return (
-      <div>
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-      </div>
-    );
-  }
 
   return (
     <Container>
@@ -62,26 +71,39 @@ function CharactersContainer() {
         <div>Eventos</div>
       </HeaderRow>
 
-      {charactersToShow.map((char) => (
-        <CharacterCard
-          key={char.id}
-          character={char}
-          onClick={() => setSelectedChar(char)}
-        />
-      ))}
+      {loading ? (
+        <div>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </div>
+      ) : statusMessage ? (
+        <StatusMessage>{statusMessage}</StatusMessage>
+      ) : (
+        charactersToShow.map((char) => (
+          <CharacterCard
+            key={char.id}
+            character={char}
+            onClick={() => setSelectedChar(char)}
+          />
+        ))
+      )}
 
       <CharacterModal
         character={selectedChar}
         onClose={() => setSelectedChar(null)}
       />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+      {!loading && characters.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </Container>
   );
-}
+};
 
 export default CharactersContainer;

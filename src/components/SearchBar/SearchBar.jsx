@@ -9,7 +9,7 @@ import {
   SearchIcon,
 } from './SearchBar.styles';
 
-function SearchBar({ value, onChange }) {
+const SearchBar = ({ value, onChange }) => {
   return (
     <SearchContainer>
       <Title>Busca de personagens</Title>
@@ -25,6 +25,6 @@ function SearchBar({ value, onChange }) {
       </InputWrapper>
     </SearchContainer>
   );
-}
+};
 
 export default SearchBar;

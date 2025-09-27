@@ -78,8 +78,8 @@ export const Switch = styled.button`
   height: 32px;
   border-radius: 4px;
   border: none;
-  background-color: ${(props) => (props.dark ? '#333' : '#ddd')};
-  color: ${(props) => (props.dark ? '#fff' : '#000')};
+  background-color: ${(dark) => (dark ? '#333' : '#ddd')};
+  color: ${(dark) => (dark ? '#fff' : '#000')};
   cursor: pointer;
   display: flex;
   align-items: center;

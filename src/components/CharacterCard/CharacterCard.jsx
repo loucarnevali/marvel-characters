@@ -7,7 +7,7 @@ import {
   InfoList,
 } from './CharacterCard.styles';
 
-function CharacterCard({ character, onClick }) {
+const CharacterCard = ({ character, onClick }) => {
   return (
     <CharacterRow onClick={onClick}>
       <CharacterInfo>
@@ -36,6 +36,6 @@ function CharacterCard({ character, onClick }) {
       </InfoList>
     </CharacterRow>
   );
-}
+};
 
 export default CharacterCard;
