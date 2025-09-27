@@ -66,7 +66,7 @@ const SkeletonEvents = styled.div`
   ${baseSkeleton};
 `;
 
-export default function Skeleton() {
+const Skeleton = () => {
   const theme = useTheme();
 
   return (
@@ -77,4 +77,6 @@ export default function Skeleton() {
       <SkeletonEvents theme={theme} />
     </SkeletonCard>
   );
-}
+};
+
+export default Skeleton;

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import SearchBar from './components/SearchBar/SearchBar';
 import Header from './components/Header/Header';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { darkTheme, lightTheme } from './components/theme';
 import CharactersContainer from './components/CharacterContainer/CharacterContainer';
+import { darkTheme, lightTheme } from './utils/theme';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -27,12 +27,12 @@ const MainContainer = styled.div`
   background-color: ${({ theme }) => theme.backgroundSecondary};
   padding: 2rem 5rem;
 
-  @media (max-width: 376px) {
+  @media (max-width: 375px) {
     padding: 0.5rem 0;
   }
 `;
 
-function App() {
+const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
@@ -52,6 +52,6 @@ function App() {
       </div>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

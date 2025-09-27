@@ -28,3 +28,9 @@ export const HeaderRow = styled.div`
     }
   }
 `;
+
+export const StatusMessage = styled.p`
+  margin-top: 2rem;
+  color: ${({ theme }) => theme.text};
+  font-weight: bold;
+`;
