@@ -1,13 +1,11 @@
-// let cachedCharacters = null;
-
 export const fetchCharacters = async (name = '') => {
-  const url = new URL('http://localhost:5174/api/marvel');
-  if (name) url.searchParams.set('name', name);
+  let url = `/api/marvel`;
+  if (name) url += `?name=${encodeURIComponent(name)}`;
 
-  const res = await fetch(url.toString());
+  const res = await fetch(url);
   if (!res.ok) {
     const data = await res.json();
-    throw new Error(data.message || 'Erro ao carregar personagens');
+    throw { status: res.status, message: data.message };
   }
 
   return res.json();
