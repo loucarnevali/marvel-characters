@@ -32,12 +32,16 @@ const SkeletonCard = styled.div`
   }
 
   @media (max-width: 376px) {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
     gap: 1rem;
     padding: 1rem;
-    max-width: 90%;
+    max-width: 100%;
     margin: 1rem auto;
+
+    &:first-child {
+      margin-top: 0rem;
+    }
   }
 `;
 
@@ -50,7 +54,7 @@ const SkeletonImage = styled.div`
 const SkeletonName = styled.div`
   flex: 1.3;
   height: 14px;
-  margin-right: 8rem;
+  margin-right: 2rem;
   ${baseSkeleton};
 `;
 
@@ -58,12 +62,20 @@ const SkeletonSeries = styled.div`
   flex: 2;
   height: 50px;
   ${baseSkeleton};
+
+  @media (max-width: 376px) {
+    display: none;
+  }
 `;
 
 const SkeletonEvents = styled.div`
   flex: 2;
   height: 50px;
   ${baseSkeleton};
+
+  @media (max-width: 376px) {
+    display: none;
+  }
 `;
 
 const Skeleton = () => {
