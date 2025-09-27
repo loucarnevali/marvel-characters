@@ -63,6 +63,7 @@ export const UserAvatar = styled.img`
   border-radius: 4px;
   object-fit: cover;
   background-color: #f5f5f5;
+  cursor: pointer;
 
   @media (max-width: 660px) {
     width: 40px;
@@ -95,5 +96,30 @@ export const Switch = styled.button`
   @media (max-width: 660px) {
     top: 0.5rem;
     right: 1rem;
+  }
+`;
+
+export const DropdownMenu = styled.ul`
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: ${({ theme }) => theme.backgroundPrimary};
+  border: 1px solid ${({ theme }) => theme.backgroundPrimary};
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0.5rem 0;
+  z-index: 10;
+  min-width: 150px;
+`;
+
+export const DropdownItem = styled.li`
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: ${({ theme }) => theme.primary};
+    color: #fff;
   }
 `;
