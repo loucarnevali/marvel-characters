@@ -28,7 +28,7 @@ const SkeletonCard = styled.div`
   margin-bottom: 10px;
 
   &:first-child {
-    margin-top: 1rem;
+    margin-top: 0rem;
   }
 
   @media (max-width: 660px) {
