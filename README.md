@@ -30,7 +30,7 @@ cd marvel-app
 npm install
 ```
 
-3. Configure as variáveis de ambiente. Crie um arquivo .env.local na raiz do projeto com:
+3. Configure as variáveis de ambiente. Crie um arquivo .env na raiz do projeto com:
 *essas chaves você consegue no: https://developer.marvel.com/
 
 ```bash
