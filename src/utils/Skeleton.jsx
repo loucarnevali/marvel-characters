@@ -28,10 +28,10 @@ const SkeletonCard = styled.div`
   margin-bottom: 10px;
 
   &:first-child {
-    margin-top: 3.5rem;
+    margin-top: 0rem;
   }
 
-  @media (max-width: 376px) {
+  @media (max-width: 660px) {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
